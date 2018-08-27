@@ -6,7 +6,7 @@ Estimation of intra-cranial volume, given a dataset of MRI images.
 
 + Written in Python 2.7
 + Tested with pytest 
-+ Provided with an example based on the upcoming library NiDanny, the dummy multi-atlas generator.
++ Provided with an example based on the upcoming library DummyForMRI, a dummy multi-atlas generator.
 
 ### How to install (in development mode) 
 
