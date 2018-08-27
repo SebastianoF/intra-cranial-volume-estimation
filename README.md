@@ -6,7 +6,7 @@ Estimation of intra-cranial volume, given a dataset of MRI images.
 
 + Written in Python 2.7
 + Tested with pytest 
-+ Provided with an example based on the upcoming NiDanny, the dummy multi-atlas generator.
++ Provided with an example based on the upcoming library NiDanny, the dummy multi-atlas generator.
 
 ### How to install (in development mode) 
 
@@ -15,7 +15,7 @@ Estimation of intra-cranial volume, given a dataset of MRI images.
 ```
 cd <folder where to clone the code>
 git clone https://github.com/SebastianoF/intra-cranial-volume-estimation.git
-cd nilabel
+cd intra-cranial-volume-estimation
 pip install -e .
 ```
 + Install python requirements in requirements.txt with
@@ -25,7 +25,7 @@ pip install -e .
 
 The code is based on the paper:
 
-Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercauteren T: "Template-free estimation of intracranial volume: a preterm birth animal model study", MICCAI workshop: Fetal and Infant Image Analysis, 2017.
+Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercauteren T: [Template-free estimation of intracranial volume: a preterm birth animal model study](http://www.nmr.mgh.harvard.edu/~iglesias/pdf/FIFI_2017_pre.pdf), MICCAI workshop: Fetal and Infant Image Analysis, 2017.
 
 Please see the paper as code documentation and nomenclature.
 (Note: paper results were not produced with this code.)
@@ -33,7 +33,7 @@ Please see the paper as code documentation and nomenclature.
 ### Licencing and Copyright
 
 Copyright (c) 2018, Sebastiano Ferraris, UCL. Intra-cranial-volume estimation is provided as it is and 
-it is available as free open-source software under [MIT License](zzz)
+it is available as free open-source software under [MIT License](https://github.com/SebastianoF/intra-cranial-volume-estimation/blob/master/LICENCE.txt)
 
 ### Acknowledgements
 
