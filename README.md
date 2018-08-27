@@ -11,17 +11,15 @@ Estimation of intra-cranial volume, given a dataset of MRI images.
 ### How to install (in development mode) 
 
 + Install [NiftyReg](https://github.com/KCL-BMEIS/niftyreg)
-+ Install the code in installed in development mode.
-To proceede, initialise a virtual environment and execute the following instructions:
++ Install in development mode in a [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) with:
 ```
 cd <folder where to clone the code>
-git clone https://github.com/SebastianoF/nilabels.git
+git clone https://github.com/SebastianoF/intra-cranial-volume-estimation.git
 cd nilabel
 pip install -e .
 ```
 + Install python requirements in requirements.txt with
     `pip install -r requirements.txt`
-in a [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
 
 ### Documentation
 
