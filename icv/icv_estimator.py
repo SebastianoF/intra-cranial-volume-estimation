@@ -129,7 +129,6 @@ class IcvEstimator(object):
         Core method to estimate the icv.
         :return: estimate of the icv for each brain.
         """
-        assert self.S.shape[0] == self.S.shape[1]
         if self.m is None:
             raise IOError('Please provide an estimate for the hyperparameter self.m .')
 
@@ -137,11 +136,10 @@ class IcvEstimator(object):
 
         def cost(v, S=self.S, m=self.m, n=self.n, a=self.a, b=self.b, alpha=self.alpha, beta=self.beta):
             sum_abs_log_diff = 0
-            for i in range(len(v)):
-                for j in range(i+1, len(v)):
-                    sum_abs_log_diff += np.abs(S[i, j] - v[i] + v[j])
+            for i, j in self.graph_connections:
+                sum_abs_log_diff += np.abs(S[i, j] - v[i] + v[j])
             mean_v = np.mean(v)
-            N = S.shape[0]
+            N = len(self.graph_connections)
 
             a1 = alpha + len(self.graph_connections)
             a2 = np.log(beta + sum_abs_log_diff)

@@ -35,9 +35,12 @@ if __name__ == '__main__':
         print('(Run multiple times to check for robustness to the initialised mean)')
 
         my_icv_estimator = IcvEstimator(list_pfi_sj, pfo_icv_output)
+
+        my_icv_estimator.graph_connections = [[i, j] for i in [0,1,2] for j in range(i + 1, num_subjects)]
+
         my_icv_estimator.m = danny_average_icv
         my_icv_estimator.compute_S()
-        my_icv_estimator.compute_m_from_list_masks(list_pfi_sj_segm, correction_volume_estimate=0)
+
         v_est = my_icv_estimator.estimate_icv()
         # Comparison
         av = (np.abs(v_ground + v_est) / float(2))
@@ -50,3 +53,13 @@ if __name__ == '__main__':
                 j+1, v_ground[j], v_est[j],  av[j],  err[j], relative_error[j]))
 
         print('\n Average relative error {}'.format(np.mean(relative_error)))
+
+        import matplotlib.pyplot as plt
+
+        plt.plot(v_ground, v_est, '.')
+        plt.plot(v_ground, v_ground, 'r')
+
+        plt.xlabel('Ground')
+        plt.ylabel('Estimated')
+
+        plt.show()
