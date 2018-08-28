@@ -1,11 +1,11 @@
-# Intra-cranial-volume estimation
+# intra-cranial-volume-estimation
 
 <p align="center"> 
-<img src="https://github.com/SebastianoF/intra-cranial-volume estimation/blob/master/logo.jpg" width="550">
+<img src="https://github.com/SebastianoF/intra-cranial-volume-estimation/blob/master/logo.jpg" width="550">
 </p>
 
 
-Estimation of intra-cranial volume, for a dataset of MRI images when no template is available.
+Estimation of intra-cranial volume (ICV), for a dataset of MRI images when no template is available.
 
 ### Features
 
