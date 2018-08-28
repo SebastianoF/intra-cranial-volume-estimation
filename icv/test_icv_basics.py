@@ -18,8 +18,8 @@ pfo_icv_output         = jph(pfo_examples, 'dummy_icv_output')
 # Subjects parameters:
 num_subjects = 7
 
-list_pfi_sj      = [jph(pfo_icv_brains, 'Danny{}_mod.nii.gz'.format(j + 1)) for j in range(num_subjects)]
-list_pfi_sj_segm = [jph(pfo_icv_brains, 'Danny{}_segm.nii.gz'.format(j + 1)) for j in range(num_subjects)]
+list_pfi_sj      = [jph(pfo_icv_brains, 'Danny{}_mod.nii.gz'.format(k + 1)) for k in range(num_subjects)]
+list_pfi_sj_segm = [jph(pfo_icv_brains, 'Danny{}_segm.nii.gz'.format(k + 1)) for k in range(num_subjects)]
 
 
 # simple decorator for the dataset creation:
@@ -60,10 +60,10 @@ def get_volume(pfi_input_segm):
 def test_compute_ground_truth_m_and_estimated_m():
     # Ground:
     v_ground = np.zeros(num_subjects, dtype=np.float)
-    for j, pfi_segm_j in enumerate(list_pfi_sj_segm):
+    for j_id, pfi_segm_j in enumerate(list_pfi_sj_segm):
         df_vols    = get_volume(pfi_segm_j)
-        v_ground[j] = df_vols
-        print('Subject {}, volume: {}'.format(j + 1, v_ground[j]))
+        v_ground[j_id] = df_vols
+        print('Subject {}, volume: {}'.format(j_id + 1, v_ground[j_id]))
     m_ground = np.mean(v_ground)
     print('Average volume {}'.format(m_ground))
     # Estimated:
@@ -94,14 +94,15 @@ def test_compute_ground_truth_v_and_estimated_v():
     for e in list(err / av):
         assert e < 1.5  # assert the error in % is below 1.5%.
 
+
 @create_data_set_for_tests
 def test_compute_ground_truth_v_and_estimated_v_non_full_graph():
     # Ground:
     v_ground = np.zeros(num_subjects, dtype=np.float)
-    for j, pfi_segm_j in enumerate(list_pfi_sj_segm):
+    for j_id, pfi_segm_j in enumerate(list_pfi_sj_segm):
         df_vols = get_volume(pfi_segm_j)
-        v_ground[j] = df_vols
-        print('Subject {}, volume: {}'.format(j + 1, v_ground[j]))
+        v_ground[j_id] = df_vols
+        print('Subject {}, volume: {}'.format(j_id + 1, v_ground[j_id]))
     m_average = np.mean(v_ground)
     # Estimated:
     my_icv_estimator = IcvEstimator(list_pfi_sj, pfo_icv_output)

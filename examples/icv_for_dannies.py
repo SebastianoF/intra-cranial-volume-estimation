@@ -11,7 +11,6 @@ if __name__ == '__main__':
         print('Please run the icv.test_icv_basics first, or run pytest or nosetests in the repository.')
 
     else:
-
         print('\nCompute the ground truth ICV from the segmentation of a set of Dannies.')
         print('(See data_examples folder to see a Danny)\n')
 
@@ -26,10 +25,9 @@ if __name__ == '__main__':
         m_std     = np.std(v_ground)
 
         print('Mean and standard deviation computed from the ground truth: {}, {}'.format(m_average, m_std))
-
         print('\n\nCompute the ICV using the icv estimator, initialised with an average ICV from literature')
 
-        danny_average_icv = m_average +  m_std  * np.random.randn()
+        danny_average_icv = m_average + m_std  * np.random.randn()
 
         print('Mean ICV from literature for a Danny is {}'.format(danny_average_icv))
         print('Difference in percentage between Mean ICV from literature and ground mean ICV for this dataset is '
