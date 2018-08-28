@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
         print('\n\nCompute the ICV using the icv estimator, initialised with an average ICV from literature')
 
-        danny_average_icv = m_average + 100 * m_std  * np.random.randn()
+        danny_average_icv = m_average +  m_std  * np.random.randn()
 
         print('Mean ICV from literature for a Danny is {}'.format(danny_average_icv))
         print('Difference in percentage between Mean ICV from literature and ground mean ICV for this dataset is '
