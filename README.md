@@ -7,6 +7,8 @@
 
 Template free estimation of intra-cranial volume (ICV), for a dataset of MRI images when no template is available.
 
+-- TESTING in PROGRESS --
+
 ### Features
 
 + Written in Python 2.7
@@ -46,6 +48,13 @@ Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercaute
 
 Please see the paper as code documentation and nomenclature.
 (Note: paper results were produced with MATLAB code, please contact the first author for the original version).
+
+### Tests
+
+For testing and datastet examples generator:
+```bash
+pytest -s
+```
 
 ### Logo
 
