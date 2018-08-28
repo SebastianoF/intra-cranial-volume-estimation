@@ -1,12 +1,10 @@
 import os
 from os.path import join as jph
-
 import numpy as np
-from nose.tools import assert_equals
 
-from nilabels.agents.agents_controller import AgentsController
-from nilabels.tools.phantoms_generator import local_data_generator as ldg
+import DummyForMRI as dfm
 
+here = os.path.dirname(os.path.abspath(__file__))
 
 num_subjects = 7
 

@@ -1,7 +1,6 @@
 import os
 from os.path import join as jph
 import nibabel as nib
-
 import numpy as np
 from scipy.optimize import minimize
 
@@ -13,12 +12,13 @@ class ICV_estimator(object):
     Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercauteren T: "Template-free estimation of
     intracranial volume: a preterm birth animal model study", MICCAI workshop: Fetal and Infant Image Analysis, 2017.
     Please see the paper as code documentation and nomenclature.
-    Note: paper results were not produced with this code.
+    Note: paper results were not produced with this code. Contact the first author for the original code.
 
     # Steps:
-    > To compute the adjacency matrix, run self.generate_transformations() and then self.compute_S().
     > To change the graph connectivity matrix, modify the graph connection parameter before
      running self.compute_S.
+    > To compute the adjacency matrix, run self.generate_transformations() and then self.compute_S().
+
     > if m (expected mean of the estimated icv) is known set it up with self.m = ...
     > If m is not know a priori but you have some way of initialise a brain mask, run it with
     self.compute_m_from_list_masks(), correcting with its parameter correction_volume_estimate.
@@ -59,7 +59,7 @@ class ICV_estimator(object):
         self.b = b
         self.alpha = alpha
         self.beta = beta
-        # Graph connection - it is complete by default.
+        # Graph connection - the default is complete. Change it manually to get a subset. keeping it fully connected.
         self.graph_connections = [[i, j] for i in range(self.num_subjects) for j in range(i+1, self.num_subjects)]
         # Folder structure
         self.pfo_warped = jph(self.pfo_output, 'warped')
@@ -72,9 +72,7 @@ class ICV_estimator(object):
         """
         cmd_1 = 'mkdir -p {0} '.format(self.pfo_warped)
         cmd_2 = 'mkdir -p {0} '.format(self.pfo_transformations)
-        print(cmd_1)
         os.system(cmd_1)
-        print(cmd_2)
         os.system(cmd_2)
 
         for i, j in self.graph_connections:
@@ -123,9 +121,7 @@ class ICV_estimator(object):
             im_nib = nib.load(p)
             one_voxel_volume = np.round(np.abs(np.prod(np.diag(im_nib.get_affine()))), decimals=6)  # (in mm)
             sum_vol += np.count_nonzero(im_nib.get_data()) * one_voxel_volume
-
         mean_vol_estimate = (sum_vol / float(len(pfi_list_brain_masks))) * (1 + correction_volume_estimate)
-        # print('Estimate of mean volume: {}'.format(mean_vol_estimate))
         self.m = mean_vol_estimate
 
     def estimate_icv(self):
@@ -146,7 +142,7 @@ class ICV_estimator(object):
             mean_v = np.mean(v)
             N = S.shape[0]
 
-            a1 = alpha + np.linalg.det(S)
+            a1 = alpha + len(self.graph_connections)  # np.linalg.det(S)
             a2 = np.log(beta + sum_abs_log_diff)
             a3 = (2 * a + N) / float(2)
             a4 = np.log(b + 0.5 * np.sum((v + mean_v) ** 2) + (N * n * (mean_v - m) ** 2) / (2 * (N + n)))
