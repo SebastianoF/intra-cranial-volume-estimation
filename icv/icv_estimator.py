@@ -97,12 +97,11 @@ class IcvEstimator(object):
         S = np.nan * np.zeros([self.num_subjects, self.num_subjects])
         for i in range(self.num_subjects):
             S[i, i] = 0
-        for i in range(self.num_subjects):
-            for j in range(i+1, self.num_subjects):
-                pfi_aff_i_j = jph(self.pfo_transformations,
-                                  self.subjects_id[i] + '_' + self.subjects_id[j] + '.txt')
-                S[i, j] = np.log(np.linalg.det(np.loadtxt(pfi_aff_i_j)))
-                S[j, i] = -1 * S[i, j]
+        for i, j in self.graph_connections:
+            pfi_aff_i_j = jph(self.pfo_transformations,
+                              self.subjects_id[i] + '_' + self.subjects_id[j] + '.txt')
+            S[i, j] = np.log(np.linalg.det(np.loadtxt(pfi_aff_i_j)))
+            S[j, i] = -1 * S[i, j]
         self.S = S
 
     def compute_m_from_list_masks(self, pfi_list_brain_masks, correction_volume_estimate=0.05):

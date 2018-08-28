@@ -36,10 +36,14 @@ if __name__ == '__main__':
 
         my_icv_estimator = IcvEstimator(list_pfi_sj, pfo_icv_output)
 
-        my_icv_estimator.graph_connections = [[i, j] for i in [0,1,2] for j in range(i + 1, num_subjects)]
+        my_icv_estimator.graph_connections = [[i, j] for i in range(num_subjects) for j in range(i + 1, num_subjects)]
 
         my_icv_estimator.m = danny_average_icv
         my_icv_estimator.compute_S()
+
+        print
+        print my_icv_estimator.S
+        print
 
         v_est = my_icv_estimator.estimate_icv()
         # Comparison
@@ -54,12 +58,12 @@ if __name__ == '__main__':
 
         print('\n Average relative error {}'.format(np.mean(relative_error)))
 
-        import matplotlib.pyplot as plt
-
-        plt.plot(v_ground, v_est, '.')
-        plt.plot(v_ground, v_ground, 'r')
-
-        plt.xlabel('Ground')
-        plt.ylabel('Estimated')
-
-        plt.show()
+        # import matplotlib.pyplot as plt
+        #
+        # plt.plot(v_ground, v_est, '.')
+        # plt.plot(v_ground, v_ground, 'r')
+        #
+        # plt.xlabel('Ground')
+        # plt.ylabel('Estimated')
+        #
+        # plt.show()
