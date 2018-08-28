@@ -5,7 +5,7 @@
 </p>
 
 
-Estimation of intra-cranial volume (ICV), for a dataset of MRI images when no template is available.
+Template free estimation of intra-cranial volume (ICV), for a dataset of MRI images when no template is available.
 
 ### Features
 
@@ -46,6 +46,10 @@ Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercaute
 
 Please see the paper as code documentation and nomenclature.
 (Note: paper results were produced with MATLAB code, please contact the first author for the original version).
+
+### Logo
+
+Sagittal sections in the logo are screenshots of the synthetic MRI dataset [BrainWeb](http://brainweb.bic.mni.mcgill.ca/brainweb/) converted to nifti with [BrainWebRawToNifti](https://github.com/SebastianoF/BrainWebRawToNifti).
 
 ### Licencing and Copyright
 

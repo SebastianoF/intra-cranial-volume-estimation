@@ -5,7 +5,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 
-class ICV_estimator(object):
+class IcvEstimator(object):
     """
     ICV estimation as in
 
@@ -65,7 +65,7 @@ class ICV_estimator(object):
         self.pfo_warped = jph(self.pfo_output, 'warped')
         self.pfo_transformations = jph(self.pfo_output, 'transformations')
 
-    def generate_transformations(self):
+    def generate_transformations(self, nifti_reg_options=' -speeeeed '):
         """
         Generate transformation to build the adjacency matrix S
         :return: provides <reference>_<floating>.txt transformations in pfo_output
@@ -79,9 +79,9 @@ class ICV_estimator(object):
             fname_i_j = self.subjects_id[i] + '_' + self.subjects_id[j]
             pfi_aff_i_j = jph(self.pfo_transformations, fname_i_j + '.txt')
             pfi_res_i_j = jph(self.pfo_warped, fname_i_j + '.nii.gz')
-            cmd_reg_i_j = 'reg_aladin -ref {0} -flo {1} -aff {2} -res {3} -speeeeed '.format(
+            cmd_reg_i_j = 'reg_aladin -ref {0} -flo {1} -aff {2} -res {3} {4} '.format(
                         self.pfi_list_subjects_to_coregister[i], self.pfi_list_subjects_to_coregister[j],
-                        pfi_aff_i_j, pfi_res_i_j)
+                        pfi_aff_i_j, pfi_res_i_j, nifti_reg_options)
             print(cmd_reg_i_j)
             os.system(cmd_reg_i_j)
 
@@ -134,6 +134,7 @@ class ICV_estimator(object):
             raise IOError('Please provide an estimate for the hyperparameter self.m .')
 
         log_estimate_v = np.log(self.m * np.ones(self.S.shape[0], dtype=np.float64))
+
         def cost(v, S=self.S, m=self.m, n=self.n, a=self.a, b=self.b, alpha=self.alpha, beta=self.beta):
             sum_abs_log_diff = 0
             for i in range(len(v)):
@@ -142,7 +143,7 @@ class ICV_estimator(object):
             mean_v = np.mean(v)
             N = S.shape[0]
 
-            a1 = alpha + len(self.graph_connections)  # np.linalg.det(S)
+            a1 = alpha + len(self.graph_connections)
             a2 = np.log(beta + sum_abs_log_diff)
             a3 = (2 * a + N) / float(2)
             a4 = np.log(b + 0.5 * np.sum((v + mean_v) ** 2) + (N * n * (mean_v - m) ** 2) / (2 * (N + n)))
