@@ -11,8 +11,8 @@ Estimation of intra-cranial volume (ICV), for a dataset of MRI images when no te
 
 + Written in Python 2.7
 + Based on [nibabel](http://nipy.org/nibabel/), [numpy](http://www.numpy.org/) and [scipy](https://www.scipy.org/).
-+ Tested with [pytest](https://docs.pytest.org/en/latest/) 
 + Provided with an example based on the multi-atlas generator [DummyForMRI](https://github.com/SebastianoF/DummyForMRI), version 0.0.2.
++ Tested with [pytest](https://docs.pytest.org/en/latest/) and on the dataset generated with [DummyForMRI](https://github.com/SebastianoF/DummyForMRI).
 
 ### How to install (in development mode) 
 
