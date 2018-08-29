@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     use_mask_brains          = True
     generate_transformations = False
-    complete_graph           = True
+    complete_graph           = 2
 
     if use_mask_brains:
         list_pfi_reg_mask = list_pfi_sj_segm  # use the brain tissue as input mask
@@ -64,11 +64,16 @@ if __name__ == '__main__':
 
         my_icv_estimator = IcvEstimator(list_pfi_sj, pfo_icv_output, list_pfi_registration_masks=list_pfi_reg_mask)
 
-        if complete_graph:
+        if complete_graph is True:
+            title = 'All nodes connected to only one'
             my_icv_estimator.graph_connections = [[i, j] for i in range(num_subjects) for j in range(i + 1, num_subjects)]
-        else:
+        elif complete_graph == 0:
             # All the node are connected to the first one, and no more connections!
+            title = 'All nodes connected to only one'
             my_icv_estimator.graph_connections = [[i, j] for i in [0] for j in range(i + 1, num_subjects)]
+        else:
+            title = 'All nodes connected to only one node, different from the previous'
+            my_icv_estimator.graph_connections = [[i, j] for i in [3] for j in range(i + 1, num_subjects)]
 
         my_icv_estimator.m = brain_average_icv_from_literature
 
@@ -77,9 +82,9 @@ if __name__ == '__main__':
 
         my_icv_estimator.compute_S()
 
-        print
+        print('\n\n S-matrix:')
         print my_icv_estimator.S
-        print
+        print('\n')
 
         v_est = my_icv_estimator.estimate_icv()
         # Comparison
@@ -101,7 +106,7 @@ if __name__ == '__main__':
 
         plt.xlabel('Ground')
         plt.ylabel('Estimated')
-        plt.title('All nodes connected to only one')
+        plt.title(title)
         plt.tight_layout()
 
         plt.show()
