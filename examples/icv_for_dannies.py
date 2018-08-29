@@ -2,7 +2,8 @@ import os
 import numpy as np
 
 from icv.icv_estimator import IcvEstimator
-from icv.test_icv_basics import num_subjects, list_pfi_sj_segm, get_volume, list_pfi_sj, pfo_icv_output
+from icv.test_icv_basics import get_volume
+from icv.test_icv_basics import num_subjects, list_pfi_sj, list_pfi_sj_segm, pfo_icv_output
 
 
 if __name__ == '__main__':

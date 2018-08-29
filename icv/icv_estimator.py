@@ -25,12 +25,13 @@ class IcvEstimator(object):
     > Get the vector of icvs with the function self.icv_estimator().
 
     """
-    def __init__(self, list_pfi_subjects_to_coregister, pfo_output, S=None, m=None,
+    def __init__(self, list_pfi_subjects_to_coregister, pfo_output, list_pfi_registration_masks=None, S=None, m=None,
                  n=0.001, a=0.001, b=0.1, alpha=0.001, beta=0.1):
         """
         :param list_pfi_subjects_to_coregister: list of path to nifti image with anatomies whose icv has to be
         estimated.  The folder must contain only these files in .nii or .nii.gz format.
         :param pfo_output: path to folder where output files are stored.
+        :param list_pfi_registration_masks: optional list of registration mask for the
         :param S: Adjacency matrix for the connections between co-registered brains.
         The matrix S is computed with the class method compute_S, according to the connections specified by
          the class variable graph_connections (complete graph by default), and it may take some time.
@@ -48,6 +49,7 @@ class IcvEstimator(object):
         # Input subjects
         self.pfi_list_subjects_to_coregister = list_pfi_subjects_to_coregister
         self.pfo_output = pfo_output
+        self.list_pfi_registration_masks = list_pfi_registration_masks
         self.num_subjects = len(list_pfi_subjects_to_coregister)
         self.subjects_id = [os.path.basename(s).split('.')[0] for s in self.pfi_list_subjects_to_coregister
                             if (s.endswith('.nii') or s.endswith('.nii.gz'))]
@@ -79,9 +81,15 @@ class IcvEstimator(object):
             fname_i_j = self.subjects_id[i] + '_' + self.subjects_id[j]
             pfi_aff_i_j = jph(self.pfo_transformations, fname_i_j + '.txt')
             pfi_res_i_j = jph(self.pfo_warped, fname_i_j + '.nii.gz')
-            cmd_reg_i_j = 'reg_aladin -ref {0} -flo {1} -aff {2} -res {3} {4} '.format(
-                        self.pfi_list_subjects_to_coregister[i], self.pfi_list_subjects_to_coregister[j],
-                        pfi_aff_i_j, pfi_res_i_j, nifti_reg_options)
+            if self.list_pfi_registration_masks is None:
+                cmd_reg_i_j = 'reg_aladin -ref {0} -flo {1} -aff {2} -res {3} {4} '.format(
+                            self.pfi_list_subjects_to_coregister[i], self.pfi_list_subjects_to_coregister[j],
+                            pfi_aff_i_j, pfi_res_i_j, nifti_reg_options)
+            else:
+                cmd_reg_i_j = 'reg_aladin -ref {0} -rmask {1} -flo {2} -fmask {3} -aff {4} -res {5} {6} '.format(
+                    self.pfi_list_subjects_to_coregister[i], self.list_pfi_registration_masks[i],
+                    self.pfi_list_subjects_to_coregister[j], self.list_pfi_registration_masks[j],
+                    pfi_aff_i_j, pfi_res_i_j, nifti_reg_options)
             print(cmd_reg_i_j)
             os.system(cmd_reg_i_j)
 
