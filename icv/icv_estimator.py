@@ -108,7 +108,7 @@ class IcvEstimator(object):
         for i, j in self.graph_connections:
             pfi_aff_i_j = jph(self.pfo_transformations,
                               self.subjects_id[i] + '_' + self.subjects_id[j] + '.txt')
-            S[i, j] = np.log(np.linalg.det(np.loadtxt(pfi_aff_i_j)))
+            S[i, j] = -1 * np.log(np.linalg.det(np.loadtxt(pfi_aff_i_j)))
             S[j, i] = -1 * S[i, j]
         self.S = S
 

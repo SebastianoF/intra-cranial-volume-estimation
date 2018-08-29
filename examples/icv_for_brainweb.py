@@ -21,8 +21,9 @@ if __name__ == '__main__':
 
     # --- PARAMETERS CONTROLLER ----
 
-    use_mask_brains          = False
+    use_mask_brains          = True
     generate_transformations = False
+    complete_graph           = True
 
     if use_mask_brains:
         list_pfi_reg_mask = list_pfi_sj_segm  # use the brain tissue as input mask
@@ -54,7 +55,7 @@ if __name__ == '__main__':
         print('Mean and standard deviation computed from the ground truth: {}, {}'.format(m_average, m_std))
         print('\n\nCompute the ICV using the icv estimator, initialised with an average ICV from literature')
 
-        brain_average_icv_from_literature = 2000333.76  # 1850000  # 1850 cm^3
+        brain_average_icv_from_literature = 2000333.76  # modulate this hyperparameters to check robustness.
 
         print('Mean ICV from literature for a newborn rabbit in mm^3 is {}'.format(brain_average_icv_from_literature))
         print('Difference in percentage between Mean ICV from literature and ground mean ICV for this dataset is '
@@ -63,7 +64,11 @@ if __name__ == '__main__':
 
         my_icv_estimator = IcvEstimator(list_pfi_sj, pfo_icv_output, list_pfi_registration_masks=list_pfi_reg_mask)
 
-        my_icv_estimator.graph_connections = [[i, j] for i in range(num_subjects) for j in range(i + 1, num_subjects)]
+        if complete_graph:
+            my_icv_estimator.graph_connections = [[i, j] for i in range(num_subjects) for j in range(i + 1, num_subjects)]
+        else:
+            # All the node are connected to the first one, and no more connections!
+            my_icv_estimator.graph_connections = [[i, j] for i in [0] for j in range(i + 1, num_subjects)]
 
         my_icv_estimator.m = brain_average_icv_from_literature
 
@@ -96,5 +101,7 @@ if __name__ == '__main__':
 
         plt.xlabel('Ground')
         plt.ylabel('Estimated')
+        plt.title('All nodes connected to only one')
+        plt.tight_layout()
 
         plt.show()

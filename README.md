@@ -7,8 +7,6 @@
 
 Template free estimation of intra-cranial volume (ICV), for a dataset of MRI images when no template is available.
 
--- TESTING in PROGRESS --
-
 ### Features
 
 + Written in Python 2.7
@@ -31,9 +29,9 @@ pip install -e .
 
 ### Documentation
 
-The code is based on the paper:
++ The code is based on the paper:
 
-Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercauteren T: [Template-free estimation of intracranial volume: a preterm birth animal model study](http://www.nmr.mgh.harvard.edu/~iglesias/pdf/FIFI_2017_pre.pdf), MICCAI workshop: Fetal and Infant Image Analysis, 2017.
+    Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercauteren T: [Template-free estimation of intracranial volume: a preterm birth animal model study](http://www.nmr.mgh.harvard.edu/~iglesias/pdf/FIFI_2017_pre.pdf), MICCAI workshop: Fetal and Infant Image Analysis, 2017.
 
 ```
 @incollection{iglesias2017template,
@@ -46,8 +44,8 @@ Iglesias JE, Ferraris S, Modat M, Gsell W, Deprest J, van der Merwe JL, Vercaute
 }
 ```
 
-Please see the paper as code documentation and nomenclature.
-(Note: paper results were produced with MATLAB code, please contact the first author for the original version).
++ The code no(ta)tions are intended to be as in the paper.
++ **Note:** results shown in the paper were produced with MATLAB code and libraries. Contact the first author for the original code.
 
 ### Tests
 
@@ -56,14 +54,11 @@ For testing and datastet examples generator:
 pytest -s
 ```
 
-### Logo
-
-Sagittal sections in the logo are screenshots of the synthetic MRI dataset [BrainWeb](http://brainweb.bic.mni.mcgill.ca/brainweb/) converted to nifti with [BrainWebRawToNifti](https://github.com/SebastianoF/BrainWebRawToNifti).
-
 ### Licencing and Copyright
 
-Copyright (c) 2018, Sebastiano Ferraris, UCL. Intra-cranial-volume estimation is provided as it is and 
++ Copyright (c) 2018, Sebastiano Ferraris, UCL. Intra-cranial-volume estimation is provided as it is and 
 it is available as free open-source software under [MIT License](https://github.com/SebastianoF/intra-cranial-volume-estimation/blob/master/LICENCE.txt)
++ Brains in the logo are from the synthetic MRI dataset [BrainWeb](http://brainweb.bic.mni.mcgill.ca/brainweb/) converted to nifti with [BrainWebRawToNifti](https://github.com/SebastianoF/BrainWebRawToNifti).
 
 ### Acknowledgements
 
