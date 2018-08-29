@@ -7,6 +7,9 @@ from icv.test_icv_basics import num_subjects, list_pfi_sj, list_pfi_sj_segm, pfo
 
 
 if __name__ == '__main__':
+
+    # --- RUN ----
+
     if not os.path.exists(pfo_icv_output):
         print('This example uses the same dataset employed for the test obtained with continuous integration.')
         print('Please run the icv.test_icv_basics first, or run pytest or nosetests in the repository.')
